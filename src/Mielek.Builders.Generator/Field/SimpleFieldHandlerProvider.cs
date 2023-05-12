@@ -33,7 +33,7 @@ public class SimpleFieldHandlerProvider : IFieldSetterHandlerProvider
                 builder.Method(new BuilderSetMethod(
                     methodName,
                     new[] { $"{paramType} value" },
-                    new[] { $"{variableName} = value;" }
+                    new[] { $"{variableName.ToFieldName()} = value;" }
                 ));
             }
         }

@@ -3,6 +3,8 @@ namespace Mielek.Builders.Generator;
 using System.Collections.Generic;
 using System.Text;
 
+using Mielek.Builders.Generator.Extensions;
+
 public class BuilderClassBuilder
 {
     readonly string _namespaceName;
@@ -86,7 +88,7 @@ public class BuilderClassBuilder
             _sourceBuilder.Append("private ");
             _sourceBuilder.Append(field.Type);
             _sourceBuilder.Append("? ");
-            _sourceBuilder.Append(field.Name);
+            _sourceBuilder.Append(field.Name.ToFieldName());
             _sourceBuilder.Append(";\n");
         }
     }
@@ -137,7 +139,7 @@ public class BuilderClassBuilder
         _sourceBuilder.Append("()\n");
         AppendLineOfCode(2, "{");
         
-        _sourceBuilder.Append(string.Join(",\n", _fields.Select(field => $"            {field.Name} = this.{field.Name}")));
+        _sourceBuilder.Append(string.Join(",\n", _fields.Select(field => $"            {field.Name} = this.{field.Name.ToFieldName()}")));
         _sourceBuilder.Append('\n');
         AppendLineOfCode(2, "};");
         AppendLineOfCode(1, "}");
